@@ -1,0 +1,356 @@
+
+
+  :root {
+    --bg: #f4f7fb;
+    --panel: #ffffff;
+    --panel-2: #f8fafc;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --primary: #2563eb;
+    --primary-soft: rgba(37, 99, 235, 0.12);
+    --green: #16a34a;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --purple: #7c3aed;
+    --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    --radius: 20px;
+  }
+
+  .sales-dashboard {
+    padding: 32px;
+    background: linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+    min-height: 100vh;
+    color: var(--text);
+  }
+
+  .sales-dashboard__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .sales-dashboard__title h1 {
+    margin: 0;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .sales-dashboard__title p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .sales-dashboard__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-btn {
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
+  }
+
+  .dashboard-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+  }
+
+  .dashboard-btn--primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .kpi-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  .kpi-card__label {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .kpi-card__value {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .kpi-card__delta {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .is-up { color: var(--green); }
+  .is-warn { color: var(--orange); }
+  .is-down { color: var(--red); }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .dashboard-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  .dashboard-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-panel__header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .dashboard-panel__header p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .chart-wrap {
+    position: relative;
+    height: 320px;
+  }
+
+  .chart-wrap--small {
+    height: 280px;
+  }
+
+  .dashboard-grid--bottom {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 24px;
+  }
+
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .orders-table th {
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .status-badge--paid {
+    background: rgba(22, 163, 74, 0.12);
+    color: var(--green);
+  }
+
+  .status-badge--pending {
+    background: rgba(245, 158, 11, 0.14);
+    color: #b45309;
+  }
+
+  .status-badge--cancelled {
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--red);
+  }
+
+  .channel-list {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .channel-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+  }
+
+  .channel-item span:first-child {
+    color: var(--muted);
+  }
+
+  .channel-item strong {
+    font-size: 15px;
+  }
+
+  @media (max-width: 1100px) {
+    .kpi-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-grid,
+    .dashboard-grid--bottom {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .sales-dashboard {
+      padding: 18px;
+    }
+
+    .kpi-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sales-dashboard__title h1 {
+      font-size: 24px;
+    }
+
+    .chart-wrap,
+    .chart-wrap--small {
+      height: 260px;
+    }
+
+    .orders-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+
+/* Контейнер для всплывашек в правом нижнем углу */
+.toast-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Контейнер для всплывашек в правом нижнем углу */
+.toast-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Главный стиль мини-окошка */
+.custom-toast {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    color: #333333;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-left: 6px solid #2ecc71; /* Зеленая полоса слева */
+    min-width: 300px;
+    pointer-events: auto;
+    
+    /* Оставляем здесь ТОЛЬКО вызов анимации появления */
+    animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* transition управляет плавностью скрытия при добавлении класса .hide */
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Стили иконки (кружок с галочкой) */
+.toast-icon {
+    width: 36px;
+    height: 36px;
+    background: #e8f8f0;
+    color: #2ecc71;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.toast-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Текст внутри окошка */
+.toast-text h3 {
+    margin: 0 0 2px 0;
+    font-size: 16px;
+    color: #2ecc71;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.toast-text p {
+    margin: 0;
+    font-size: 13px;
+    color: #666666;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Класс для плавного исчезновения, который активируется через JS */
+.custom-toast.hide {
+    transform: translateY(-20px) scale(0.9) !important;
+    opacity: 0 !important;
+}
+
+/* Анимация плавного появления с четким стартом (from) и финишем (to) */
+@keyframes slideIn {
+    from {
+        transform: translateY(100px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}

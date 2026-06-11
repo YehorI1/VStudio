@@ -1,0 +1,51 @@
+id;product;product_id;amount;income_price;outcome_price;category;category_id;sales_channel;sales_channel_id;customer;customer_id;order_status;date
+SO-0001;iPhone 15;P001;1;18000;24500000;Electronics;C1;Website;S1;Alex Moroz;U001;Paid;2026-01-03
+SO-0002;Yoga Mat;P002;2;450;890;Sports;C4;Instagram;S3;Maria Koval;U002;Paid;2026-01-05
+SO-0003;Table Lamp;P003;1;600;1100;Home Decor;C2;Marketplace;S2;Ivan Petrenko;U003;Pending;2026-01-07
+SO-0004;Running Shoes;P004;1;1200;2200;Sports;C4;Website;S1;Oksana Lysenko;U004;Paid;2026-01-09
+SO-0005;Harry Potter Box Set;P005;1;350;650;Books;C5;Marketplace;S2;Dmytro Savchenko;U005;Cancelled;2026-01-11
+SO-0006;Samsung TV 55;P006;1;22000;31000;Electronics;C1;Partners;S4;Natalia Bondar;U006;Paid;2026-01-14
+SO-0007;Linen Curtains;P007;2;800;1500;Home Decor;C2;Instagram;S3;Andriy Shevchenko;U007;Paid;2026-01-16
+SO-0008;Denim Jacket;P008;1;900;1800;Fashion;C3;Website;S1;Yulia Honchar;U008;Pending;2026-01-18
+SO-0009;Wireless Headphones;P009;1;2500;4200;Electronics;C1;Instagram;S3;Sergiy Melnyk;U009;Paid;2026-01-21
+SO-0010;Cookbooks Set;P010;3;200;420;Books;C5;Marketplace;S2;Tetiana Kravchenko;U010;Paid;2026-01-23
+SO-0011;Fitness Tracker;P011;1;3200;5500;Electronics;C1;Website;S1;Roman Vlasenko;U011;Paid;2026-01-26
+SO-0012;Throw Pillow Set;P012;4;180;360;Home Decor;C2;Partners;S4;Liudmyla Stets;U012;Cancelled;2026-01-28
+SO-0013;Leather Sneakers;P013;1;1500;2800;Fashion;C3;Instagram;S3;Bohdan Tkach;U013;Paid;2026-01-30
+SO-0014;Resistance Bands;P014;3;120;250;Sports;C4;Marketplace;S2;Kateryna Ilina;U014;Paid;2026-02-02
+SO-0015;Kindle Paperwhite;P015;1;4000;6200;Electronics;C1;Website;S1;Mykola Zakharenko;U015;Paid;2026-02-05
+SO-0016;Scented Candles;P016;5;90;190;Home Decor;C2;Instagram;S3;Olena Chumak;U016;Pending;2026-02-07
+SO-0017;Wool Coat;P017;1;2800;5200;Fashion;C3;Partners;S4;Victoria Panchenko;U017;Paid;2026-02-10
+SO-0018;Swimming Goggles;P018;2;350;700;Sports;C4;Website;S1;Anton Rudenko;U018;Paid;2026-02-12
+SO-0019;Novel — The Road;P019;2;180;350;Books;C5;Marketplace;S2;Diana Kovtun;U019;Paid;2026-02-14
+SO-0020;AirPods Pro;P020;1;9500;14000;Electronics;C1;Website;S1;Yevhen Zakharov;U020;Cancelled;2026-02-17
+SO-0021;Wall Clock;P021;1;550;1050;Home Decor;C2;Instagram;S3;Iryna Lukianenko;U021;Paid;2026-02-19
+SO-0022;Sports Backpack;P022;1;750;1400;Sports;C4;Partners;S4;Vasyl Doroshenko;U022;Paid;2026-02-21
+SO-0023;Silk Blouse;P023;2;600;1200;Fashion;C3;Marketplace;S2;Alina Havrylenko;U023;Pending;2026-02-24
+SO-0024;History of Ukraine;P024;1;280;520;Books;C5;Website;S1;Maksym Shulha;U024;Paid;2026-02-26
+SO-0025;Smart Watch;P025;1;7500;12000;Electronics;C1;Instagram;S3;Polina Nechyporenko;U025;Paid;2026-03-01
+SO-0026;Bamboo Shelf;P026;1;1800;3200;Home Decor;C2;Website;S1;Alex Moroz;U001;Paid;2026-03-04
+SO-0027;Tennis Racket;P027;1;1100;2000;Sports;C4;Marketplace;S2;Maria Koval;U002;Cancelled;2026-03-06
+SO-0028;Trench Coat;P028;1;3200;5800;Fashion;C3;Partners;S4;Ivan Petrenko;U003;Paid;2026-03-09
+SO-0029;iPad Air;P029;1;28000;38000;Electronics;C1;Website;S1;Oksana Lysenko;U004;Paid;2026-03-12
+SO-0030;Science Fiction Bundle;P030;4;220;450;Books;C5;Instagram;S3;Dmytro Savchenko;U005;Paid;2026-03-14
+SO-0031;Aromatherapy Diffuser;P031;1;700;1300;Home Decor;C2;Marketplace;S2;Natalia Bondar;U006;Pending;2026-03-17
+SO-0032;Hoodie;P032;2;500;950;Fashion;C3;Website;S1;Andriy Shevchenko;U007;Paid;2026-03-19
+SO-0033;Cycling Helmet;P033;1;900;1700;Sports;C4;Partners;S4;Yulia Honchar;U008;Paid;2026-03-22
+SO-0034;MacBook Air M3;P034;1;48000;64000;Electronics;C1;Website;S1;Sergiy Melnyk;U009;Paid;2026-03-25
+SO-0035;Decorative Mirror;P035;1;1200;2200;Home Decor;C2;Instagram;S3;Tetiana Kravchenko;U010;Cancelled;2026-03-27
+SO-0036;Levi's Jeans;P036;1;1400;2500;Fashion;C3;Marketplace;S2;Roman Vlasenko;U011;Paid;2026-03-30
+SO-0037;Protein Powder;P037;2;600;1150;Sports;C4;Website;S1;Liudmyla Stets;U012;Paid;2026-04-02
+SO-0038;Business Books Set;P038;3;300;580;Books;C5;Partners;S4;Bohdan Tkach;U013;Paid;2026-04-05
+SO-0039;Sony WH-1000XM5;P039;1;12000;18500;Electronics;C1;Instagram;S3;Kateryna Ilina;U014;Paid;2026-04-07
+SO-0040;Ceramic Vase;P040;2;350;680;Home Decor;C2;Website;S1;Mykola Zakharenko;U015;Pending;2026-04-10
+SO-0041;Summer Dress;P041;1;700;1350;Fashion;C3;Marketplace;S2;Olena Chumak;U016;Paid;2026-04-12
+SO-0042;Trekking Poles;P042;1;850;1600;Sports;C4;Instagram;S3;Victoria Panchenko;U017;Paid;2026-04-15
+SO-0043;Children Books Pack;P043;5;150;290;Books;C5;Website;S1;Anton Rudenko;U018;Cancelled;2026-04-18
+SO-0044;Gaming Monitor;P044;1;15000;22000;Electronics;C1;Partners;S4;Diana Kovtun;U019;Paid;2026-04-21
+SO-0045;Wooden Photo Frame;P045;3;220;440;Home Decor;C2;Marketplace;S2;Yevhen Zakharov;U020;Paid;2026-04-23
+SO-0046;Puffer Jacket;P046;1;2500;4500;Fashion;C3;Website;S1;Iryna Lukianenko;U021;Paid;2026-04-26
+SO-0047;Dumbbells Set;P047;1;2200;3800;Sports;C4;Instagram;S3;Vasyl Doroshenko;U022;Paid;2026-04-29
+SO-0048;Marketing Handbook;P048;1;380;700;Books;C5;Marketplace;S2;Alina Havrylenko;U023;Pending;2026-05-03
+SO-0049;Bluetooth Speaker;P049;1;3500;5800;Electronics;C1;Website;S1;Maksym Shulha;U024;Paid;2026-05-07
+SO-0050;Boho Wall Art;P050;2;480;920;Home Decor;C2;Partners;S4;Polina Nechyporenko;U025;Paid;2026-05-12

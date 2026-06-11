@@ -1,0 +1,55 @@
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/auth/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <h1>{{ title }}</h1>
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="form-error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="form-error">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Пароль</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="form-error">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="form-error">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Регистрация</button>
+            <p class="form-note">После регистрации вы сразу войдете в систему.</p>
+        </form>
+    </div>
+</div>
+{% endblock %}

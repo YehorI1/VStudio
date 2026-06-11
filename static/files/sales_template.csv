@@ -1,0 +1,6 @@
+id;product;product_id;amount;income_price;outcome_price;category;category_id;sales_channel;sales_channel_id;customer;customer_id;order_status;date
+SO-0001;iPhone 15;P001;1;18000;24500;Electronics;C1;Website;S1;Alex Moroz;U001;Paid;2026-01-03
+SO-0002;Yoga Mat;P002;2;450;890;Sports;C4;Instagram;S3;Maria Koval;U002;Paid;2026-01-05
+SO-0003;Table Lamp;P003;1;600;1100;Home Decor;C2;Marketplace;S2;Ivan Petrenko;U003;Pending;2026-01-07
+SO-0004;Running Shoes;P004;1;1200;2200;Sports;C4;Website;S1;Oksana Lysenko;U004;Paid;2026-01-09
+SO-0005;Harry Potter Box Set;P005;1;350;650;Books;C5;Marketplace;S2;Dmytro Savchenko;U005;Cancelled;2026-01-11

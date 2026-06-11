@@ -1,0 +1,8 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="file_input">Выберите файл для дашборда (CSV/Excel):</label>
+        <input type="file" name="excel_file" id="file_input" class="form-control-file" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Загрузить и обработать</button>
+</form>

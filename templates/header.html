@@ -1,0 +1,38 @@
+<div class="header-content">
+    <div class="nav-container">
+        <h2>Навигация:</h2>
+        <nav>
+            <ul>
+                <li>
+                    <a class="btn btn-primary" href="/office/">→ Офис</a>
+                </li>
+                {% if not user.is_authenticated %}
+                <li>
+                    <a class="btn btn-primary" href="/login/">→ Авторизация</a>
+                </li>
+                <li>
+                    <a class="btn btn-primary" href="/register/">→ Регистрация</a>
+                </li>
+                {% endif %}
+
+                <li>
+                    {% if user.is_superuser %}
+                    <a class="btn btn-primary" href="/stat/">→ Статистика</a>
+                    <span class="restricted"></span>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="logout-btn">
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Выйти из аккаунта</button>
+        </form>
+    </div>
+    {% endif %}
+    
+
+</div>

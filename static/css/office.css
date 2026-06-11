@@ -1,0 +1,13 @@
+.office-actions ul {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    padding: 0;
+    margin: 14px 0 0;
+    flex-wrap: wrap;
+}
+
+.office-actions a {
+    display: inline-flex;
+    align-items: center;
+}

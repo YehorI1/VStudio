@@ -1,0 +1,338 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/statstyles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="sales-dashboard">
+    <div class="sales-dashboard__topbar">
+        <div class="sales-dashboard__title">
+            <h1>Sales Dashboard</h1>
+            <p>Огляд виручки, замовлень, каналів продажів і категорій за останні 6 місяців</p>
+        </div>
+
+        <div class="sales-dashboard__actions">
+            <button class="dashboard-btn">Export CSV</button>
+            <form id="uploadForm" action="{% url 'upload_sales_data' %}" method="POST" enctype="multipart/form-data" style="display: inline-block;">
+                {% csrf_token %}
+                <input type="file" id="fileInput" name="excel_file" accept=".csv, .xlsx, .xls" style="display: none;">
+                <button type="button" id="uploadTriggerBtn" class="dashboard-btn dashboard-btn--primary">Загрузить данные</button>
+            </form>
+            <a href="{% static 'files/sales_template.csv' %}" download="sales_template.csv" style="text-decoration: none;">
+                <button class="dashboard-btn dashboard-btn--primary">Скачать образец CSV</button>
+            </a>
+            <a href="{% static 'files/sales_template.xlsx' %}" download="sales_template.xlsx" style="text-decoration: none;">
+                <button class="dashboard-btn dashboard-btn--primary">Скачать образец Excel</button>
+        </a>
+        </div>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-card__label">Total Revenue</div>
+            <div class="kpi-card__value">{{ total_revenue }}</div>
+            <div class="kpi-card__delta is-up">+12.4% vs previous period</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-card__label">Orders</div>
+            <div class="kpi-card__value">{{ orders }}</div>
+            <div class="kpi-card__delta is-up">+8.1% vs previous period</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-card__label">Conversion Rate</div>
+            <div class="kpi-card__value">{{ conversion_rate }}%</div>
+            <div class="kpi-card__delta is-up">+0.7 pp</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-card__label">Refunds</div>
+            <div class="kpi-card__value">{{ refounds }}</div>
+            <div class="kpi-card__delta is-warn">+1.9% vs previous period</div>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <section class="dashboard-panel">
+            <div class="dashboard-panel__header">
+                <div>
+                    <h3>Revenue Trend</h3>
+                    <p>Monthly revenue and profit</p>
+                </div>
+            </div>
+            <div class="chart-wrap">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </section>
+
+        <section class="dashboard-panel">
+            <div class="dashboard-panel__header">
+                <div>
+                    <h3>Sales Channels</h3>
+                    <p>Distribution by source</p>
+                </div>
+            </div>
+            <div class="chart-wrap chart-wrap--small">
+                <canvas id="channelChart"></canvas>
+            </div>
+
+            <div class="channel-list">
+                <div class="channel-item">
+                    <span>Website</span>
+                    <strong>{{ website }}</strong>
+                </div>
+                <div class="channel-item">
+                    <span>Marketplace</span>
+                    <strong>{{ marketplace }} %</strong>
+                </div>
+                <div class="channel-item">
+                    <span>Instagram</span>
+                    <strong>{{ instagram }} %</strong>
+                </div>
+                <div class="channel-item">
+                    <span>Partners</span>
+                    <strong>{{ pinterest }}%</strong>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="dashboard-grid--bottom">
+        <section class="dashboard-panel">
+            <div class="dashboard-panel__header">
+                <div>
+                    <h3>Revenue by Category</h3>
+                    <p>Best performing product groups</p>
+                </div>
+            </div>
+            <div class="chart-wrap chart-wrap--small">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </section>
+
+        <section class="dashboard-panel">
+            <div class="dashboard-panel__header">
+                <div>
+                    <h3>Latest Orders</h3>
+                    <p>Recent transactions overview</p>
+                </div>
+            </div>
+
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in latest_orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.customer }}</td>
+                        <td><span class="status-badge status-badge--{{ order.order_status|lower }}">{{ order.order_status }}</span>
+                        </td>
+                        <td>${{ order.amount }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+
+{{ months_|json_script:"months-data"}}
+{{ revenue_data_|json_script:"revenue-data"}}
+{{ profit_data_|json_script:"profit-data"}}
+{{ months_|json_script:"months-data"}}
+{{ labels_sales_channel|json_script:"labels-sales-channel-data"}}
+{{ data_sales_channel|json_script:"data-sales-channel-data"}}
+{{ labels_category|json_script:"labels-category-data"}}
+{{ data_category|json_script:"data-category-data"}}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // console.log(JSON.parse(document.getElementById('labels-sales-channel-data').textContent));
+    // console.log(JSON.parse(document.getElementById('data-sales-channel-data').textContent));
+    const months = JSON.parse(document.getElementById('months-data').textContent);
+    const revenueData = JSON.parse(document.getElementById('revenue-data').textContent);
+    const profitData = JSON.parse(document.getElementById('profit-data').textContent);
+    
+    const sharedGridColor = 'rgba(148, 163, 184, 0.18)';
+    const sharedTickColor = '#64748b';
+
+    Chart.defaults.font.family = 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    Chart.defaults.color = sharedTickColor;
+
+    new Chart(document.getElementById('revenueChart'), {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [
+                {
+                    label: 'Revenue',
+                    data: revenueData,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.16)',
+                    fill: true,
+                    tension: 0.38,
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#2563eb'
+                },
+                {
+                    label: 'Profit',
+                    data: profitData,
+                    borderColor: '#16a34a',
+                    backgroundColor: 'rgba(22, 163, 74, 0.10)',
+                    fill: false,
+                    tension: 0.38,
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#16a34a'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        boxWidth: 10,
+                        padding: 18
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#0f172a',
+                    padding: 12,
+                    cornerRadius: 12,
+                    displayColors: true
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { color: sharedTickColor }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: sharedGridColor },
+                    ticks: {
+                        color: sharedTickColor,
+                        callback: function (value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    new Chart(document.getElementById('channelChart'), {
+       
+        type: 'doughnut',
+        data: {
+    
+            labels: JSON.parse(document.getElementById('labels-sales-channel-data').textContent),
+            // labels:['Website', 'Marketplace', 'Instagram', 'Partners'],
+            datasets: [{
+                data: JSON.parse(document.getElementById('data-sales-channel-data').textContent),
+                // data: [46, 28, 16, 10],
+                backgroundColor: ['#2563eb', '#7c3aed', '#f59e0b', '#16a34a'],
+                borderWidth: 0,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '68%',
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: '#0f172a',
+                    padding: 12,
+                    cornerRadius: 12
+                }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('categoryChart'), {
+        type: 'bar',
+        data: {
+            labels: JSON.parse(document.getElementById('labels-category-data').textContent),
+            datasets: [{
+                label: 'Revenue',
+                data: JSON.parse(document.getElementById('data-category-data').textContent),
+                borderRadius: 12,
+                backgroundColor: ['#2563eb', '#60a5fa', '#7c3aed', '#f59e0b', '#16a34a'],
+                maxBarThickness: 36
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#0f172a',
+                    padding: 12,
+                    cornerRadius: 12
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { color: sharedTickColor }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: sharedGridColor },
+                    ticks: {
+                        color: sharedTickColor,
+                        callback: function (value) {
+                            return '$' + (value / 1000) + 'k';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const uploadTriggerBtn = document.getElementById('uploadTriggerBtn');
+const uploadForm = document.getElementById('uploadForm');
+
+uploadTriggerBtn.addEventListener('click', () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+        uploadForm.submit();
+    }
+});
+</script>
+
+<p>Conversion Rate: {{ conversion_rate }}%</p>
+
+{% endblock %}

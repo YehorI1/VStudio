@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/office.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать в Офис</h1>
+    <nav class="office-actions">
+        <ul>
+            <li>
+                {% if not user.is_authenticated %}
+                <a href="/login/" class="btn btn-secondary">Авторизация</a>
+                {% endif %}
+            </li>
+        </ul>
+
+        <ul>
+            <li><a href="/" class="btn btn-secondary">Главная</a></li>
+
+            
+
+            <li>
+                
+                <a href="/stat/" class="btn btn-primary">Статистика</a>
+                
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

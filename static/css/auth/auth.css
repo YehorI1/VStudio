@@ -1,0 +1,67 @@
+.auth-page {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 48px;
+}
+
+.auth-card {
+    width: min(520px, 100%);
+    background-color: #ffffff;
+    border: 1px solid #e8eaee;
+    border-radius: 20px;
+    box-shadow: 0 28px 60px rgba(32, 45, 95, 0.08);
+    padding: 32px;
+}
+
+.auth-card h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #131a2c;
+}
+
+.auth-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.auth-form label,
+.auth-form .form-label {
+    font-size: 14px;
+    color: #4f5662;
+    font-weight: 600;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d9e1ef;
+    border-radius: 12px;
+    background-color: #f8fafe;
+    color: #1f2a44;
+    font-size: 15px;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #3300ff;
+    box-shadow: 0 0 0 4px rgba(51, 0, 255, 0.08);
+    background-color: #ffffff;
+}
+
+.auth-form button[type="submit"] {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 16px;
+}
+.auth-form .form-note {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #6b7280;
+}
