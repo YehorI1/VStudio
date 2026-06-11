@@ -1,1 +1,25 @@
 /.venv
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+local_settings.py
+
+# Виртуальное окружение (рекомендуется называть .venv или venv)
+venv/
+.venv/
+env/
+.env/
+
+# ОС и IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Файлы окружения (конфиденциальные данные)
+.env
+.env.*
