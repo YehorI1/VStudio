@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import HttpResponse
 
 # --- УНИВЕРСАЛЬНЫЙ ЧИТАТЕЛЬ ---
 def read_latest_data():
@@ -112,6 +113,23 @@ def index(request):
         'data_category': list(category_sps.values()),
     }
     return render(request, 'tut_stat/index.html', context)
+@login_required
+def export_csv(request):
+    orders_list = read_latest_data()
+    
+    if not orders_list:
+        messages.error(request, "Нет данных для экспорта!")
+        return redirect("stat-index")
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="exported_data.csv"'
+
+    writer = csv.writer(response)
+    if orders_list:
+        writer.writerow(orders_list[0].keys())
+        for order in orders_list:
+            writer.writerow(order.values())
+    return response
 
 class StatIndexView(UserPassesTestMixin, TemplateView):
     template_name = 'tut_stat/index.html'
