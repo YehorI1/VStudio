@@ -35,7 +35,6 @@ def read_latest_data():
         df.columns = [str(c).lower().strip().replace(" ", "_") for c in df.columns]
         return df.to_dict(orient='records')
     except Exception as e:
-        print(f"Ошибка при чтении файла: {e}")
         return []
 
 # --- ЗАГРУЗКА ---
@@ -65,12 +64,27 @@ def index(request):
     sum_outcome, total_orders, total_refounds, sales_count = 0, 0, 0, 0
     category_sps, pie_sps, date_sps, profit_sps = {}, {}, {}, {}
 
+    REQUIRED_KEYS = [
+    "id", "product", "product_id", "amount", "income_price", "outcome_price",
+    "category", "category_id", "sales_channel", "sales_channel_id",
+    "customer", "customer_id", "order_status", "date"
+]
     for order in orders_list:
+        missing_keys = [key for key in REQUIRED_KEYS if key not in order]
+    
+        if missing_keys:
+            # print(f"Критическая ошибка: В заказе {order.get('id', 'Unknown')} отсутствуют поля: {missing_keys}")
+            break
         try:
-            # Ищем цену в разных вариациях названий колонок
-            out_price = int(float(order.get("outcome_price") or order.get("outcome") or 0))
-            inc_price = int(float(order.get("income_price") or order.get("income") or 0))
-        except (ValueError, TypeError): continue
+            out_price = int(float(order["outcome_price"]))
+            inc_price = int(float(order["income_price"]))
+        
+            if order["outcome_price"] == "" or order["income_price"] == "":
+                raise ValueError("Пустое значение цены")
+            
+        except (ValueError, TypeError) as e:
+            # print(f"Ошибка данных в заказе {order.get('id')}: {e}")
+            break
             
         sum_outcome += out_price
         total_orders += 1
