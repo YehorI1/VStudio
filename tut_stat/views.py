@@ -61,31 +61,53 @@ def upload_sales_data(request):
 def index(request):
     orders_list = read_latest_data()
     
+    # 1. Если файлов нет — показываем страницу с сообщением
+    if not orders_list:
+        return render(request, 'tut_stat/index.html', {'message': "Данных нет, загрузите файл."})
+
+    # 2. Инициализация переменных
     sum_outcome, total_orders, total_refounds, sales_count = 0, 0, 0, 0
     category_sps, pie_sps, date_sps, profit_sps = {}, {}, {}, {}
 
+    def clear_data_dir():
+        data_dir = os.path.join(settings.BASE_DIR, "data")
+        for f in glob.glob(os.path.join(data_dir, "*.*")):
+            os.remove(f)
+
     REQUIRED_KEYS = [
-    "id", "product", "product_id", "amount", "income_price", "outcome_price",
-    "category", "category_id", "sales_channel", "sales_channel_id",
-    "customer", "customer_id", "order_status", "date"
-]
+        "id", "product", "product_id", "amount", "income_price", "outcome_price",
+        "category", "category_id", "sales_channel", "sales_channel_id",
+        "customer", "customer_id", "order_status", "date"
+    ]
+
+    # 3. Основной цикл обработки
     for order in orders_list:
+        # Проверка на наличие ключей
         missing_keys = [key for key in REQUIRED_KEYS if key not in order]
-    
         if missing_keys:
-            # print(f"Критическая ошибка: В заказе {order.get('id', 'Unknown')} отсутствуют поля: {missing_keys}")
-            break
+            clear_data_dir()
+            return render(request, 'tut_stat/error.html', {
+                'error_message': f"Файл поврежден (отсутствуют поля: {', '.join(missing_keys)}). Файл удален."
+            })
+            
         try:
-            out_price = int(float(order["outcome_price"]))
-            inc_price = int(float(order["income_price"]))
-        
-            if order["outcome_price"] == "" or order["income_price"] == "":
+            # Безопасное получение цен
+            out_val = order.get("outcome_price")
+            inc_val = order.get("income_price")
+            
+            if out_val == "" or out_val is None or inc_val == "" or inc_val is None:
                 raise ValueError("Пустое значение цены")
+                
+            out_price = int(float(out_val))
+            inc_price = int(float(inc_val))
             
         except (ValueError, TypeError) as e:
-            # print(f"Ошибка данных в заказе {order.get('id')}: {e}")
-            break
+            clear_data_dir()
+            return render(request, 'tut_stat/error.html', {
+                'error_message': f"Ошибка данных в заказе {order.get('id', 'Unknown')}: {e}. Файл удален."
+            })
             
+        # Расчеты
         sum_outcome += out_price
         total_orders += 1
         
@@ -109,6 +131,7 @@ def index(request):
         
         pie_sps[channel] = pie_sps.get(channel, 0) + out_price
 
+    # 4. Формирование контекста
     total_visitors = len(orders_list)
     conversion = (sales_count / total_visitors * 100) if total_visitors > 0 else 0
 
