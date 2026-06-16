@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import os
-from .config import config
+from tut_project.config import config
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-r%$+fbk!p_92ero0l8xlb_8@nns=3$-c+iy=bd6vd*=64ivjz@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = config.ALLOWED_HOST
+ALLOWED_HOSTS = config.ALLOWED_HOSTS
 CSRF_TRUSTED_ORIGINS = config.CSRF_TRUSTED_ORIGINS
 # ALLOWED_HOSTS = ["127.0.0.1",'dashboard.integrator.space']
 # CSRF_TRUSTED_ORIGINS = ["https://127.0.0.1",'https://dashboard.integrator.space']
