@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-r%$+fbk!p_92ero0l8xlb_8@nns=3$-c+iy=bd6vd*=64ivjz@
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1",'dashboard.integrator.space']
-CSRF_TRUSTED_ORIGINS = ["127.0.0.1",'dashboard.integrator.space']
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1",'http://dashboard.integrator.space']
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
