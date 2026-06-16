@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import os
-from tut_project.config import config
+from .config import config
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
