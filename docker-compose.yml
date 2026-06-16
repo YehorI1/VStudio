@@ -5,4 +5,4 @@ services:
     volumes:
       - .:/app
     ports:
-      - "8001:8000"
+      - "40003:8000"
